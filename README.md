@@ -1,11 +1,49 @@
+# TemporalAI-SAT
 
-  # Build this feature
+AI-powered Temporal Resolution Enhancement for Geostationary Weather Satellites
 
-  This is a code bundle for Build this feature. The original project is available at https://www.figma.com/design/pyDG92QBXLet7Xi1jUoLpf/Build-this-feature.
+## Overview
 
-  ## Running the code
+TemporalAI-SAT is an AI-assisted framework designed to enhance the temporal resolution of INSAT-3DS weather satellite imagery.
 
-  Run `npm i` to install the dependencies.
+Instead of waiting 30 minutes between observations, the system synthesizes intermediate frames using deep learning, enabling:
 
-  Run `npm run dev` to start the development server.
-  
+- Faster cyclone tracking
+- Improved thunderstorm monitoring
+- Better flood progression analysis
+- Enhanced nowcasting support
+
+## Features
+
+- AI Frame Interpolation
+- Optical Flow Estimation
+- 4× Temporal Resolution Enhancement
+- Explainable AI
+- Confidence Heatmaps
+- Scientific Quality Metrics
+- Interactive Mission Dashboard
+
+## Tech Stack
+
+- React
+- TypeScript
+- TailwindCSS
+- Framer Motion
+- TemporalNet (Prototype)
+- Vite
+
+## Project Structure
+
+...
+
+## Screenshots
+
+(Add dashboard screenshots)
+
+## Future Scope
+
+...
+
+## License
+
+MIT
