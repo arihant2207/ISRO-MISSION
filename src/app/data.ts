@@ -3,7 +3,7 @@ import {
   LayoutDashboard, Play, Pause, SkipForward, SkipBack,
   RefreshCw, Maximize2, Eye, Brain, BarChart2, FileText, Film,
   CheckCircle, TrendingUp, Bell, User, Lock, Wifi,
-  Shield, Database, Layers, ArrowRight, LogOut, Cpu, Radio,
+  Shield, Database, Layers, ArrowRight, LogOut, Cpu, Radio, Target,
 } from "lucide-react";
 
 export const METRIC_TREND = [
@@ -67,6 +67,11 @@ export const DOWNLOADS_LIST = [
 
 export const NAV_ITEMS = [
   { id: "dashboard", label: "Mission Dashboard", Icon: LayoutDashboard },
+  { id: "identify", label: "Cyclone Identification", Icon: Target },
+  { id: "classify", label: "Pattern Classification", Icon: Layers },
+  { id: "intensity", label: "Cyclone Intensity", Icon: Activity },
+  { id: "predict", label: "Track Prediction", Icon: Navigation },
+  { id: "landfall", label: "Landfall & Risk", Icon: AlertTriangle },
   { id: "viewer", label: "Frame Viewer", Icon: Eye },
   { id: "satellites", label: "Satellites", Icon: Satellite },
   { id: "metrics", label: "AI Metrics", Icon: BarChart2 },
@@ -77,15 +82,24 @@ export const NAV_ITEMS = [
 ];
 
 export const NAV_LABELS: Record<string, string> = {
-  dashboard: "Mission Dashboard",
-  viewer: "Frame Viewer & Analysis",
-  satellites: "Satellite Network",
-  metrics: "AI Performance Metrics",
-  events: "Event Detection",
-  xai: "Explainable AI",
-  downloads: "Download Center",
-  settings: "Settings",
+  dashboard: "01 Mission Overview",
+  events: "02 Cyclone Discovery",
+  satellites: "03 Satellite Intelligence",
+  identify: "04 Cyclone Identification",
+  classify: "05 Pattern Classification",
+  intensity: "06 Intensity Estimation",
+  predict: "07 Track Prediction",
+  landfall: "08 Landfall & Coastal Risk Intelligence",
+  metrics: "09 Temporal Satellite Enhancement",
+  xai: "10 Scientific Evaluation & XAI",
+  viewer: "Satellite Frame Viewer",
+  sources: "Satellite Sources Registry",
+  status: "System Status & Telemetry",
+  provenance: "Data Provenance Inspector",
 };
+
+
+
 
 export const G = {
   panel: {

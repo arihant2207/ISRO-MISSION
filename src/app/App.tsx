@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { 
   Satellite, Bell, User, LogOut, Lock, Wifi, Shield, RefreshCw,
-  AlertTriangle, Cpu, LayoutDashboard, Eye, BarChart2, Brain, Download, Settings
+  AlertTriangle, Cpu, LayoutDashboard, Eye, BarChart2, Brain, Download, Settings, Target, Layers, Activity, Database
 } from "lucide-react";
 import BackgroundControl from "./components/BackgroundControl";
 import Globe3D from "./components/Globe3D";
 
 // Modular Screens
 import DashboardScreen from "./components/DashboardScreen";
+import IdentificationScreen from "./components/IdentificationScreen";
+import ClassificationScreen from "./components/ClassificationScreen";
+import IntensityScreen from "./components/IntensityScreen";
+import PredictionScreen from "./components/PredictionScreen";
+import LandfallScreen from "./components/LandfallScreen";
 import ViewerScreen from "./components/ViewerScreen";
+
+
+
 import SatellitesScreen from "./components/SatellitesScreen";
 import MetricsScreen from "./components/MetricsScreen";
 import EventsScreen from "./components/EventsScreen";
@@ -180,14 +188,14 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
               <Satellite size={24} color="white" />
             </div>
             <div>
-              <div style={{ fontFamily: "var(--font-heading)", fontSize: 22, fontWeight: 900, color: "white", lineHeight: 1.1, letterSpacing: 0.5 }}>TemporalAI-SAT</div>
-              <div style={{ fontSize: 9.5, color: "#00E5FF", letterSpacing: 2.5, fontWeight: 700 }}>MISSION INTELLIGENCE CONTROL</div>
+              <div style={{ fontFamily: "var(--font-heading)", fontSize: 22, fontWeight: 900, color: "white", lineHeight: 1.1, letterSpacing: 0.5 }}>CYCLONEAI-SAT</div>
+              <div style={{ fontSize: 9.5, color: "#00E5FF", letterSpacing: 2.5, fontWeight: 700 }}>SIH26070 · CYCLONE INTELLIGENCE</div>
             </div>
           </div>
 
           <div style={{ marginBottom: 30 }}>
-            <div style={{ fontFamily: "var(--font-heading)", fontSize: 23, fontWeight: 800, color: "white", marginBottom: 6, letterSpacing: -0.5 }}>Mission Access</div>
-            <div style={{ fontSize: 12.5, color: "#94A3B8", lineHeight: 1.5 }}>AI-Powered Satellite Temporal Resolution Enhancement System</div>
+            <div style={{ fontFamily: "var(--font-heading)", fontSize: 21, fontWeight: 800, color: "white", marginBottom: 6, letterSpacing: -0.5 }}>Mission Access</div>
+            <div style={{ fontSize: 11, color: "#94A3B8", lineHeight: 1.5 }}>AI/ML System for Tropical Cyclone Identification, Classification & Prediction · Multi-Source Satellite Intelligence • Explainable AI • Scientific Evaluation</div>
           </div>
 
           {/* Inputs */}
@@ -300,21 +308,25 @@ function Sidebar({
 }) {
   const sections = [
     {
-      title: "DEMO WORKFLOW",
+      title: "MISSION NAVIGATION",
       items: [
-        { id: "dashboard", label: "Mission Overview", Icon: LayoutDashboard, live: false },
-        { id: "events", label: "Event Detection", Icon: AlertTriangle, live: true, badge: 1 },
-        { id: "satellites", label: "Track Analysis", Icon: Satellite, live: true },
-        { id: "viewer", label: "Frame Viewer", Icon: Eye, live: true },
-        { id: "metrics", label: "Temporal Enhancement", Icon: BarChart2, live: false },
-        { id: "xai", label: "Explainable AI", Icon: Brain, live: false }
+        { id: "dashboard", label: "01 Mission Overview", Icon: LayoutDashboard, live: false },
+        { id: "events", label: "02 Cyclone Discovery", Icon: AlertTriangle, live: true, badge: 1 },
+        { id: "satellites", label: "03 Satellite Intelligence", Icon: Satellite, live: true },
+        { id: "identify", label: "04 Cyclone Identification", Icon: Target, live: true },
+        { id: "classify", label: "05 Pattern Classification", Icon: Layers, live: true },
+        { id: "intensity", label: "06 Intensity Estimation", Icon: Activity, live: true },
+        { id: "predict", label: "07 Track Prediction", Icon: Cpu, live: true },
+        { id: "landfall", label: "08 Landfall & Risk", Icon: Shield, live: false },
+        { id: "metrics", label: "09 Temporal Enhancement", Icon: BarChart2, live: false },
+        { id: "xai", label: "10 Scientific Evaluation & XAI", Icon: Brain, live: false }
       ]
     },
     {
-      title: "SYSTEM",
+      title: "SYSTEM & PROVENANCE",
       items: [
-        { id: "downloads", label: "Downloads & Export", Icon: Download, live: false },
-        { id: "settings", label: "Settings", Icon: Settings, live: false }
+        { id: "viewer", label: "Satellite Frame Viewer", Icon: Eye, live: false },
+        { id: "sources", label: "Source Registry Audit", Icon: Database, live: false }
       ]
     }
   ];
@@ -367,8 +379,8 @@ function Sidebar({
           </div>
           {!collapsed && (
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ fontFamily: "var(--font-heading)", fontSize: 13, fontWeight: 900, color: "white", lineHeight: 1.1 }}>TemporalAI-SAT</div>
-              <div style={{ fontSize: 8, color: "rgba(0,229,255,0.75)", letterSpacing: 1.5, fontWeight: 700, marginTop: 1 }}>SIH 2026</div>
+              <div style={{ fontFamily: "var(--font-heading)", fontSize: 13, fontWeight: 900, color: "white", lineHeight: 1.1 }}>CYCLONEAI-SAT</div>
+              <div style={{ fontSize: 8, color: "rgba(0,229,255,0.75)", letterSpacing: 1.5, fontWeight: 700, marginTop: 1 }}>SIH26070</div>
             </div>
           )}
         </div>
@@ -621,23 +633,23 @@ function TopBar({ navLabel, onLogout }: { navLabel: string; onLogout: () => void
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <span style={{ fontFamily: "var(--font-heading)", fontSize: 13.5, fontWeight: 900, color: "white", letterSpacing: "0.2px" }}>
-              TemporalAI-SAT
+              CYCLONEAI-SAT
             </span>
             <span style={{ 
               fontSize: 8, 
-              color: "#FF3B5C", 
-              background: "rgba(255, 59, 92, 0.08)", 
-              border: "1px solid rgba(255, 59, 92, 0.25)", 
-              padding: "1px 4.5px", 
+              color: "#00E5FF", 
+              background: "rgba(0, 229, 255, 0.08)", 
+              border: "1px solid rgba(0, 229, 255, 0.25)", 
+              padding: "1px 6px", 
               borderRadius: 3, 
               fontWeight: 800, 
               fontFamily: "'JetBrains Mono', monospace",
               display: "inline-flex",
               alignItems: "center",
-              gap: 2.5
+              gap: 4
             }}>
-              <span style={{ width: 3.5, height: 3.5, borderRadius: "50%", background: "#FF3B5C", display: "inline-block", animation: "pulse-dot 1s infinite" }} />
-              LIVE
+              <span style={{ width: 3.5, height: 3.5, borderRadius: "50%", background: "#00E5FF", display: "inline-block", animation: "pulse-dot 1s infinite" }} />
+              HISTORICAL DEMO (MICHAUNG)
             </span>
           </div>
           <span style={{ fontSize: 9, color: "rgba(0, 229, 255, 0.8)", letterSpacing: "1px", fontWeight: 700, textTransform: "uppercase" }}>
@@ -960,7 +972,15 @@ export default function App() {
             {/* Router Page Containers */}
             <div className="scroll-hide" style={{ flex: 1, overflowY: nav === "viewer" ? "hidden" : "auto" }}>
               {nav === "dashboard"  && <DashboardScreen elapsedSeconds={elapsedSeconds} onNavigate={(tab) => setNav(tab)} />}
+              {nav === "identify"   && <IdentificationScreen onNavigate={(tab) => setNav(tab)} />}
+              {nav === "classify"   && <ClassificationScreen onNavigate={(tab) => setNav(tab)} />}
+              {nav === "intensity"  && <IntensityScreen onNavigate={(tab) => setNav(tab)} />}
+              {nav === "predict"    && <PredictionScreen onNavigate={(tab) => setNav(tab)} />}
+              {nav === "landfall"   && <LandfallScreen onNavigate={(tab) => setNav(tab)} />}
               {nav === "viewer"     && <ViewerScreen onNavigate={(tab) => setNav(tab)} />}
+
+
+
               {nav === "satellites" && <SatellitesScreen onNavigate={(tab) => setNav(tab)} />}
               {nav === "metrics"    && <MetricsScreen onNavigate={(tab) => setNav(tab)} />}
               {nav === "events"     && <EventsScreen onNavigate={(tab) => setNav(tab)} />}

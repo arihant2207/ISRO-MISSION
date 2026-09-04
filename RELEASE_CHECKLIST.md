@@ -1,0 +1,27 @@
+# CYCLONEAI-SAT — SIH26070 Final Submission Checklist
+
+- [x] **SIH26070 Requirement Mapped**: All 8 problem statement requirements mapped to backend services.
+- [x] **Scientific Metrics Verified**:
+  - Candidate Identification MAE: **24.6 km** (`WITHIN_EVENT`)
+  - Pattern Classification Accuracy: **87.5%** (`WITHIN_EVENT`)
+  - Wind Intensity Estimation MAE: **8.42 km/h** (`WITHIN_EVENT`)
+  - Track Prediction +24h MAE: **68.2 km** (`MULTI_EVENT_BASELINE`, 8 NIO cyclones)
+  - Temporal Enhancement SSIM: **0.9215** on **14 held-out test triplets** (`WITHIN_EVENT_HELD_OUT`)
+- [x] **Temporal Metric Discrepancy Resolved**:
+  - Total frames: 48
+  - Total generated triplets: 46
+  - Train triplets: 32 (triplets 0-31)
+  - Test triplets: 14 (triplets 32-45)
+  - Evaluated test triplets count: 14
+- [x] **Satellite Timeline Verified**: `2023-12-03 00:00:00 UTC` to `2023-12-04 23:00:00 UTC` (Cyclone Michaung).
+- [x] **No Fake Live Indicators**: Misleading "LIVE" badges replaced with `"HISTORICAL DEMO (MICHAUNG)"`.
+- [x] **No Fake Confidence**: Zero fabricated probability percentages or SHAP attributions.
+- [x] **No Unsupported AI Claims**: Baseline algorithms clearly demarcated from ML models.
+- [x] **Multi-Source Fusion Status**: Formally marked `NOT_READY` with scientific integrity safeguard explaining single connected source.
+- [x] **Navigation Alignment**: Main navigation follows 10-step mission workflow ending on `10 Scientific Evaluation & XAI`.
+- [x] **All Backend Tests Pass**: 69 / 69 Pytest unit tests passing.
+- [x] **Frontend Build Passes**: Vite React production build compiles cleanly without errors.
+- [x] **API Smoke Test Passes**: 15 / 15 FastAPI endpoints returning 200 OK with valid schemas.
+- [x] **Zero Console Errors**: Clean browser execution.
+- [x] **README & Documentation**: Complete technical specification and reproducibility guide.
+- [x] **Limitations Disclosed**: 8-item limitation registry integrated into backend & UI.

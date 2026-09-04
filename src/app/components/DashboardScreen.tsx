@@ -63,19 +63,19 @@ export default function DashboardScreen({ elapsedSeconds = 0, onNavigate }: Dash
                 }}
               >
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#00E5FF", animation: "pulse-dot 1.2s infinite" }} />
-                TEMPORALAI-SAT CYCLONE MISSION SYSTEM
+                CYCLONEAI-SAT TROPICAL CYCLONE INTELLIGENCE SYSTEM (SIH26070)
               </span>
 
               <span style={{ fontSize: 10, padding: "3px 8px", borderRadius: 4, background: "rgba(255, 59, 92, 0.12)", border: "1px solid rgba(255, 59, 92, 0.35)", color: "#FF3B5C", fontWeight: 800, fontFamily: "'JetBrains Mono', monospace" }}>
-                HISTORICAL EVENT • CYCLONE MICHAUNG (DEC 2023)
+                MoES / IMD PROBLEM OWNER • ISRO DATA NODE
               </span>
             </div>
 
             <div style={{ fontSize: 20, fontWeight: 900, color: "white", fontFamily: "var(--font-heading)", letterSpacing: 0.2, marginTop: 2 }}>
-              AI-Driven Temporal Intelligence for Cyclone Monitoring
+              Multi-Source Tropical Cyclone Identification, Classification & Prediction
             </div>
             <div style={{ fontSize: 11.5, color: "#94A3B8", fontFamily: "var(--font-sans)", lineHeight: 1.4 }}>
-              Reconstructing intermediate satellite observations to improve monitoring of rapidly evolving weather systems using multi-source satellite data.
+              AI-assisted multi-source satellite intelligence pipeline for geostationary tropical cyclone identification, IMD pattern classification, trajectory forecasting, and temporal enhancement.
             </div>
           </div>
 
