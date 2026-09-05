@@ -255,14 +255,74 @@ export default function SatellitesScreen({ onNavigate }: SatellitesScreenProps) 
         </div>
       )}
 
-      {/* ─── 4. Multi-Source Fusion Pipeline Architecture ─── */}
+      {/* ─── 4. Indian Satellite Observation Panel (Requirement 19) ─── */}
+      <div className="glass-panel" style={{ padding: 20, display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ fontSize: 11, color: "#64748B", fontWeight: 800, letterSpacing: 1.2, textTransform: "uppercase", display: "flex", alignItems: "center", gap: 6 }}>
+          <SatIcon size={14} color="#00F593" />
+          INDIAN SATELLITE OBSERVATION PANEL (ISRO / IMD DATA NODES)
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14 }}>
+          {[
+            {
+              name: "INSAT-3D",
+              role: "Geostationary Meteorological Satellite Observation",
+              sensor: "Imager (Thermal IR 10.8 µm)",
+              time: "Dec 03 00:00 – Dec 05 23:30 UTC",
+              inputRole: "Primary Cloud Top Temp & Convective Core Analysis",
+              status: "CONNECTED (48 FRAMES)",
+              color: "#00F593",
+              bg: "rgba(0, 245, 147, 0.1)"
+            },
+            {
+              name: "INSAT-3DR",
+              role: "Geostationary Cloud & Thermal Observation",
+              sensor: "Imager & Sounder (Thermal IR / Water Vapor)",
+              time: "Demonstration Replay Mode",
+              inputRole: "Multi-Sensor Cross-Channel Calibration",
+              status: "CONFIGURED / DEMO",
+              color: "#FFB800",
+              bg: "rgba(255, 184, 0, 0.1)"
+            },
+            {
+              name: "EOS-06 / SCATSAT",
+              role: "Ocean Surface Wind Scatterometer Information",
+              sensor: "Ku-Band Scatterometer",
+              time: "Scatterometer Pass Alignment",
+              inputRole: "Sea-Surface Ocean Vector Winds ($V_{ocean}$)",
+              status: "DATASET / AVAILABLE",
+              color: "#00E5FF",
+              bg: "rgba(0, 229, 255, 0.1)"
+            }
+          ].map((sat) => (
+            <div key={sat.name} style={{ background: "rgba(4, 8, 17, 0.65)", padding: 14, borderRadius: 8, border: `1px solid ${sat.color}40`, display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ fontSize: 15, fontWeight: 900, color: "white", fontFamily: "var(--font-heading)" }}>{sat.name}</span>
+                <span style={{ fontSize: 8, padding: "2px 6px", borderRadius: 4, background: sat.bg, color: sat.color, fontWeight: 800, fontFamily: "'JetBrains Mono', monospace" }}>
+                  {sat.status}
+                </span>
+              </div>
+
+              <div style={{ fontSize: 10, color: "#94A3B8" }}>{sat.role}</div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 4, fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace", marginTop: 4 }}>
+                <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ color: "#64748B" }}>Sensor/Product:</span><span style={{ color: "#CBD5E1" }}>{sat.sensor}</span></div>
+                <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ color: "#64748B" }}>Obs Time:</span><span style={{ color: "#CBD5E1" }}>{sat.time}</span></div>
+                <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ color: "#64748B" }}>Input Role:</span><span style={{ color: sat.color, fontWeight: 700 }}>{sat.inputRole}</span></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ─── 5. Multi-Source Fusion Pipeline Architecture (Requirement 18 & 20) ─── */}
       <div className="glass-panel" style={{ padding: 20, display: "flex", flexDirection: "column", gap: 16 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <GitMerge size={18} color="#00F593" />
             <div>
               <div style={{ fontFamily: "var(--font-heading)", fontSize: 15, fontWeight: 800, color: "white" }}>
-                Multi-Source Fusion Pipeline Architecture
+                MULTI-SOURCE DATA FUSION PIPELINE ARCHITECTURE
               </div>
               <div style={{ fontSize: 11, color: "#64748B" }}>
                 Multi-satellite alignment & feature-level fusion engine readiness.
@@ -274,6 +334,45 @@ export default function SatellitesScreen({ onNavigate }: SatellitesScreenProps) 
             <span style={{ fontSize: 10, padding: "4px 10px", borderRadius: 4, background: fusionStatus?.fusion_status === "OPERATIONAL" ? "rgba(0, 255, 136, 0.12)" : "rgba(255, 184, 0, 0.12)", border: fusionStatus?.fusion_status === "OPERATIONAL" ? "1px solid rgba(0, 255, 136, 0.3)" : "1px solid rgba(255, 184, 0, 0.3)", color: fusionStatus?.fusion_status === "OPERATIONAL" ? "#00FF88" : "#FFB800", fontWeight: 800, fontFamily: "'JetBrains Mono', monospace" }}>
               FUSION STATUS: {fusionStatus?.fusion_status || "NOT_READY"}
             </span>
+          </div>
+        </div>
+
+        {/* Multi-Source Fusion Flow Diagram (Requirement 20) */}
+        <div style={{ background: "rgba(4, 8, 17, 0.75)", padding: 16, borderRadius: 8, border: "1px solid rgba(0, 229, 255, 0.2)", display: "flex", flexDirection: "column", gap: 12, fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace" }}>
+          <div style={{ fontSize: 9, color: "#00E5FF", fontWeight: 800, letterSpacing: 1 }}>FUSION FEATURE EXTRACTION FLOW:</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, textAlign: "center" }}>
+            <div style={{ background: "rgba(0, 245, 147, 0.08)", border: "1px solid rgba(0, 245, 147, 0.3)", padding: 8, borderRadius: 6 }}>
+              <div style={{ color: "#00F593", fontWeight: 900 }}>INSAT-3D (CONNECTED)</div>
+              <div style={{ color: "#CBD5E1", fontSize: 8.5, marginTop: 2 }}>Cloud / Thermal Features</div>
+            </div>
+            <div style={{ background: "rgba(255, 184, 0, 0.08)", border: "1px solid rgba(255, 184, 0, 0.3)", padding: 8, borderRadius: 6 }}>
+              <div style={{ color: "#FFB800", fontWeight: 900 }}>INSAT-3DR (DEMO)</div>
+              <div style={{ color: "#CBD5E1", fontSize: 8.5, marginTop: 2 }}>Cloud / Thermal Features</div>
+            </div>
+            <div style={{ background: "rgba(0, 229, 255, 0.08)", border: "1px solid rgba(0, 229, 255, 0.3)", padding: 8, borderRadius: 6 }}>
+              <div style={{ color: "#00E5FF", fontWeight: 900 }}>EOS-06 / SCATSAT (DATASET)</div>
+              <div style={{ color: "#CBD5E1", fontSize: 8.5, marginTop: 2 }}>Ocean Wind Features</div>
+            </div>
+            <div style={{ background: "rgba(123, 97, 255, 0.08)", border: "1px solid rgba(123, 97, 255, 0.3)", padding: 8, borderRadius: 6 }}>
+              <div style={{ color: "#7B61FF", fontWeight: 900 }}>HISTORICAL DATA (CONNECTED)</div>
+              <div style={{ color: "#CBD5E1", fontSize: 8.5, marginTop: 2 }}>Temporal / Track Features</div>
+            </div>
+          </div>
+
+          <div style={{ textAlign: "center", color: "#7B61FF", fontWeight: 900 }}>
+            ↓ QUALITY CONTROL → TEMPORAL ALIGNMENT → GEO-SPATIAL ALIGNMENT ↓
+          </div>
+
+          <div style={{ background: "rgba(123, 97, 255, 0.15)", border: "1px solid #7B61FF", padding: 10, borderRadius: 6, textAlign: "center", color: "white", fontWeight: 900, fontSize: 11 }}>
+            MULTI-SOURCE FEATURE FUSION & CYCLONE AI ENGINE
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 6, textAlign: "center", fontSize: 8.5 }}>
+            {["IDENTIFICATION", "CLASSIFICATION", "INTENSITY", "TRACK", "RISK"].map((cap) => (
+              <div key={cap} style={{ background: "rgba(4, 8, 17, 0.6)", padding: "6px 2px", borderRadius: 4, color: "#00E5FF", fontWeight: 800, border: "1px solid rgba(0,229,255,0.15)" }}>
+                {cap}
+              </div>
+            ))}
           </div>
         </div>
 

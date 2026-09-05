@@ -20,6 +20,7 @@ export default function IdentificationScreen({ onNavigate }: IdentificationScree
   const [evalData, setEvalData] = useState<IdentificationEvaluation | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [showOverlay, setShowOverlay] = useState<boolean>(true);
   const totalFrames = 48;
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -69,7 +70,7 @@ export default function IdentificationScreen({ onNavigate }: IdentificationScree
 
     ctx.clearRect(0, 0, width, height);
 
-    if (!identData || !identData.detected) {
+    if (!identData || !identData.detected || !showOverlay) {
       return;
     }
 
@@ -171,7 +172,7 @@ export default function IdentificationScreen({ onNavigate }: IdentificationScree
         }
       }
     }
-  }, [identData]);
+  }, [identData, showOverlay]);
 
   return (
     <div style={{ padding: "24px 28px", display: "flex", flexDirection: "column", gap: 20, maxWidth: 1600, margin: "0 auto" }}>
@@ -180,17 +181,53 @@ export default function IdentificationScreen({ onNavigate }: IdentificationScree
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
         <div>
           <div style={{ fontFamily: "var(--font-heading)", fontSize: 22, fontWeight: 900, color: "white", display: "flex", alignItems: "center", gap: 10 }}>
-            Cyclone Identification
+            Cyclone Candidate Identification
             <span style={{ fontSize: 9.5, padding: "3px 8px", borderRadius: 4, background: "rgba(0, 229, 255, 0.12)", border: "1px solid rgba(0, 229, 255, 0.35)", color: "#00E5FF", fontWeight: 800, fontFamily: "'JetBrains Mono', monospace" }}>
               WITHIN_EVENT · MAE 24.6 KM
             </span>
           </div>
           <div style={{ fontSize: 13, color: "#94A3B8", marginTop: 4 }}>
-            Satellite-based candidate center localization from thermal IR morphology and spatial validation against IBTrACS ground truth.
+            Candidate center localization from thermal IR morphology and spatial validation against IBTrACS ground truth.
           </div>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          {/* Raw Image | AI Detection Overlay Toggle */}
+          <div style={{ display: "flex", background: "rgba(4, 8, 17, 0.6)", borderRadius: 6, border: "1px solid rgba(0, 229, 255, 0.2)", padding: 2 }}>
+            <button
+              onClick={() => setShowOverlay(false)}
+              style={{
+                padding: "5px 10px",
+                borderRadius: 4,
+                border: "none",
+                background: !showOverlay ? "rgba(0, 229, 255, 0.2)" : "transparent",
+                color: !showOverlay ? "#00E5FF" : "#64748B",
+                fontSize: 9.5,
+                fontWeight: 800,
+                fontFamily: "'JetBrains Mono', monospace",
+                cursor: "pointer"
+              }}
+            >
+              Raw Image
+            </button>
+            <button
+              onClick={() => setShowOverlay(true)}
+              style={{
+                padding: "5px 10px",
+                borderRadius: 4,
+                border: "none",
+                background: showOverlay ? "rgba(0, 229, 255, 0.2)" : "transparent",
+                color: showOverlay ? "#00E5FF" : "#64748B",
+                fontSize: 9.5,
+                fontWeight: 800,
+                fontFamily: "'JetBrains Mono', monospace",
+                cursor: "pointer"
+              }}
+            >
+              AI Detection Overlay
+            </button>
+          </div>
+
           <div style={{ padding: "6px 12px", borderRadius: 6, background: "rgba(0, 245, 147, 0.1)", border: "1px solid rgba(0, 245, 147, 0.3)", color: "#00F593", fontSize: 10.5, fontWeight: 800, fontFamily: "'JetBrains Mono', monospace" }}>
             REAL DATA: INSAT-3D + NOAA IBTrACS
           </div>
@@ -214,6 +251,28 @@ export default function IdentificationScreen({ onNavigate }: IdentificationScree
           >
             VIEW TRACK <ArrowRight size={13} />
           </button>
+        </div>
+      </div>
+
+      {/* Candidate Identification 6-Step Pipeline Bar */}
+      <div style={{ padding: "10px 16px", borderRadius: 8, background: "rgba(4, 8, 17, 0.65)", border: "1px solid rgba(0, 229, 255, 0.15)", fontSize: 9.5, fontFamily: "'JetBrains Mono', monospace", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+        <span style={{ color: "#64748B", fontWeight: 800 }}>IDENTIFICATION PIPELINE:</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+          {[
+            "1. Satellite Observations",
+            "2. Quality Check",
+            "3. Cloud Feature Extraction",
+            "4. Disturbance Detection",
+            "5. Cyclone Candidate",
+            "6. Confirmation"
+          ].map((step, idx) => (
+            <React.Fragment key={step}>
+              {idx > 0 && <span style={{ color: "#475569" }}>↓</span>}
+              <span style={{ color: idx === 4 || idx === 5 ? "#00F593" : "#00E5FF", fontWeight: 800, padding: "2px 6px", borderRadius: 4, background: "rgba(0, 229, 255, 0.08)" }}>
+                {step}
+              </span>
+            </React.Fragment>
+          ))}
         </div>
       </div>
 

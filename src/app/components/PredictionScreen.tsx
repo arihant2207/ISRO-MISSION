@@ -23,6 +23,7 @@ export default function PredictionScreen({ onNavigate }: PredictionScreenProps) 
   const [evalRes, setEvalRes] = useState<TrackEvaluationResponse | null>(null);
   const [isMultiEvent, setIsMultiEvent] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [leakageInfoOpen, setLeakageInfoOpen] = useState<boolean>(false);
 
   const mapCanvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -317,17 +318,34 @@ export default function PredictionScreen({ onNavigate }: PredictionScreenProps) 
         </div>
       </div>
 
-      {/* ─── 3. Step 10: Interactive Origin Time Selector ─── */}
-      <div className="glass-panel" style={{ padding: "14px 20px", display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap", border: "1px solid rgba(255, 184, 0, 0.3)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      {/* ─── 3. Step 10: Interactive Origin Time Selector & Anti-Leakage Info Icon ─── */}
+      <div className="glass-panel" style={{ padding: "14px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap", border: "1px solid rgba(255, 184, 0, 0.3)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, position: "relative" }}>
           <Clock size={16} color="#FFB800" />
           <span style={{ fontSize: 11, fontWeight: 800, color: "#FFB800", fontFamily: "'JetBrains Mono', monospace" }}>
-            SELECT FORECAST ORIGIN TIME (T):
+            FORECAST INITIALIZATION ORIGIN TIME (T)
           </span>
+
+          {/* Requirement 10: Anti-Future-Data Leakage Info Icon */}
+          <button 
+            onClick={() => setLeakageInfoOpen(!leakageInfoOpen)}
+            style={{ background: "none", border: "none", color: "#00E5FF", cursor: "pointer", display: "flex", alignItems: "center", padding: 2 }}
+            title="Forecast Mode Anti-Leakage Information"
+          >
+            <Info size={14} color="#00E5FF" />
+          </button>
+
+          {/* Anti-Leakage Popover */}
+          {leakageInfoOpen && (
+            <div style={{ position: "absolute", top: 28, left: 0, width: 340, background: "rgba(7, 18, 33, 0.95)", border: "1px solid rgba(0, 229, 255, 0.4)", borderRadius: 8, padding: 12, boxShadow: "0 8px 30px rgba(0,0,0,0.6)", zIndex: 500, fontSize: 10, color: "#CBD5E1", lineHeight: 1.45, fontFamily: "'JetBrains Mono', monospace" }}>
+              <div style={{ color: "#00E5FF", fontWeight: 800, marginBottom: 4 }}>SCIENTIFIC DATA-LEAKAGE CONTRACT</div>
+              «Forecasts are generated using only observations available up to the forecast initialization time. Future observations are excluded from model input.»
+            </div>
+          )}
         </div>
 
         {fullTrack.length > 0 && (
-          <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ flex: 1, minWidth: 300, display: "flex", alignItems: "center", gap: 12 }}>
             <input 
               type="range"
               min={1}

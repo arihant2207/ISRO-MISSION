@@ -23,6 +23,7 @@ import EventsScreen from "./components/EventsScreen";
 import XAIScreen from "./components/XAIScreen";
 import DownloadsScreen from "./components/DownloadsScreen";
 import SettingsScreen from "./components/SettingsScreen";
+import SystemStatusDrawer from "./components/SystemStatusDrawer";
 
 // Static Data and Layout config
 import { NAV_ITEMS, NAV_LABELS, G } from "./data";
@@ -308,25 +309,54 @@ function Sidebar({
 }) {
   const sections = [
     {
-      title: "MISSION NAVIGATION",
+      title: "MISSION CONTROL",
       items: [
-        { id: "dashboard", label: "01 Mission Overview", Icon: LayoutDashboard, live: false },
-        { id: "events", label: "02 Cyclone Discovery", Icon: AlertTriangle, live: true, badge: 1 },
-        { id: "satellites", label: "03 Satellite Intelligence", Icon: Satellite, live: true },
-        { id: "identify", label: "04 Cyclone Identification", Icon: Target, live: true },
-        { id: "classify", label: "05 Pattern Classification", Icon: Layers, live: true },
-        { id: "intensity", label: "06 Intensity Estimation", Icon: Activity, live: true },
-        { id: "predict", label: "07 Track Prediction", Icon: Cpu, live: true },
-        { id: "landfall", label: "08 Landfall & Risk", Icon: Shield, live: false },
-        { id: "metrics", label: "09 Temporal Enhancement", Icon: BarChart2, live: false },
-        { id: "xai", label: "10 Scientific Evaluation & XAI", Icon: Brain, live: false }
+        { id: "dashboard", label: "01 Mission Overview", Icon: LayoutDashboard, live: false }
       ]
     },
     {
-      title: "SYSTEM & PROVENANCE",
+      title: "CYCLONE DISCOVERY",
       items: [
-        { id: "viewer", label: "Satellite Frame Viewer", Icon: Eye, live: false },
-        { id: "sources", label: "Source Registry Audit", Icon: Database, live: false }
+        { id: "identify", label: "02 Candidate Identification", Icon: Target, live: true },
+        { id: "events", label: "03 Cyclone Discovery & Events", Icon: AlertTriangle, live: true, badge: 1 }
+      ]
+    },
+    {
+      title: "CLASSIFICATION",
+      items: [
+        { id: "classify", label: "04 Pattern Classification & Validation", Icon: Layers, live: true }
+      ]
+    },
+    {
+      title: "INTENSITY",
+      items: [
+        { id: "intensity", label: "05 Intensity Estimation & Trend", Icon: Activity, live: true }
+      ]
+    },
+    {
+      title: "PREDICTION",
+      items: [
+        { id: "predict", label: "06 Track Forecast", Icon: Cpu, live: true },
+        { id: "landfall", label: "07 Landfall & Coastal Risk", Icon: Shield, live: false }
+      ]
+    },
+    {
+      title: "SATELLITE INTELLIGENCE",
+      items: [
+        { id: "satellites", label: "08 Satellite Registry & Fusion", Icon: Satellite, live: true },
+        { id: "viewer", label: "Satellite Frame Viewer", Icon: Eye, live: false }
+      ]
+    },
+    {
+      title: "TEMPORAL INTELLIGENCE",
+      items: [
+        { id: "metrics", label: "09 AI Temporal Enhancement 30→15→7.5", Icon: BarChart2, live: false }
+      ]
+    },
+    {
+      title: "EXPLAINABLE AI & EVALUATION",
+      items: [
+        { id: "xai", label: "10 Scientific Evaluation & XAI", Icon: Brain, live: false }
       ]
     }
   ];
@@ -599,6 +629,7 @@ function Sidebar({
 function TopBar({ navLabel, onLogout }: { navLabel: string; onLogout: () => void }) {
   const [time, setTime] = useState(new Date());
   const [profileOpen, setProfileOpen] = useState(false);
+  const [statusOpen, setStatusOpen] = useState(false);
 
   useEffect(() => { 
     const t = setInterval(() => setTime(new Date()), 1000); 
@@ -709,49 +740,30 @@ function TopBar({ navLabel, onLogout }: { navLabel: string; onLogout: () => void
       {/* Right side operational tools */}
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
         
-        {/* Status Chips */}
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          {[
-            { Icon: Satellite, label: "INSAT-3D Online", color: "#00E5FF", bg: "rgba(0, 229, 255, 0.04)", border: "rgba(0, 229, 255, 0.15)" },
-            { Icon: Cpu, label: "Prototype Pipeline", color: "#7B61FF", bg: "rgba(123, 97, 255, 0.04)", border: "rgba(123, 97, 255, 0.15)" },
-            { Icon: AlertTriangle, label: "1 Historical Event", color: "#FF3B5C", bg: "rgba(255, 59, 92, 0.04)", border: "rgba(255, 59, 92, 0.15)" }
-          ].map(({ Icon, label, color, bg, border }) => (
-            <div 
-              key={label} 
-              style={{ 
-                display: "flex", 
-                alignItems: "center", 
-                gap: 5, 
-                padding: "4px 8px", 
-                borderRadius: 6, 
-                background: bg, 
-                border: `1px solid ${border}`,
-                transition: "all 0.2s"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = color;
-                e.currentTarget.style.boxShadow = `0 0 8px ${color}1a`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = border;
-                e.currentTarget.style.boxShadow = "none";
-              }}
-            >
-              <Icon size={11} color={color} style={{ flexShrink: 0 }} />
-              <span style={{ fontSize: 9.5, color: color, fontWeight: 700, fontFamily: "'JetBrains Mono', monospace", whiteSpace: "nowrap" }}>
-                {label.toUpperCase()}
-              </span>
-              <span style={{ 
-                width: 3.5, 
-                height: 3.5, 
-                borderRadius: "50%", 
-                background: color, 
-                display: "inline-block", 
-                animation: "pulse-dot 1.5s infinite",
-                marginLeft: 2
-              }} />
-            </div>
-          ))}
+        {/* Single Compact SYSTEM STATUS Trigger Button (Replaces Tag Pills) */}
+        <div style={{ position: "relative" }}>
+          <button 
+            onClick={() => setStatusOpen(!statusOpen)}
+            style={{ 
+              display: "flex", 
+              alignItems: "center", 
+              gap: 6, 
+              padding: "5px 10px", 
+              borderRadius: 6, 
+              background: statusOpen ? "rgba(0, 229, 255, 0.15)" : "rgba(0, 229, 255, 0.06)", 
+              border: "1px solid rgba(0, 229, 255, 0.25)",
+              color: "#00E5FF",
+              cursor: "pointer",
+              fontSize: 10,
+              fontWeight: 800,
+              fontFamily: "'JetBrains Mono', monospace",
+              transition: "all 0.2s"
+            }}
+          >
+            <span style={{ fontSize: 12, lineHeight: 1 }}>◉</span>
+            <span>SYSTEM STATUS</span>
+          </button>
+          <SystemStatusDrawer isOpen={statusOpen} onClose={() => setStatusOpen(false)} />
         </div>
 
         {/* Dual Clocks IST/UTC */}
