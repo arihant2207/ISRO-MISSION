@@ -24,6 +24,7 @@ import XAIScreen from "./components/XAIScreen";
 import DownloadsScreen from "./components/DownloadsScreen";
 import SettingsScreen from "./components/SettingsScreen";
 import SystemStatusDrawer from "./components/SystemStatusDrawer";
+import GeoPulseAIAssistant from "./components/GeoPulseAIAssistant";
 
 // Static Data and Layout config
 import { NAV_ITEMS, NAV_LABELS, G } from "./data";
@@ -189,8 +190,8 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
               <Satellite size={24} color="white" />
             </div>
             <div>
-              <div style={{ fontFamily: "var(--font-heading)", fontSize: 22, fontWeight: 900, color: "white", lineHeight: 1.1, letterSpacing: 0.5 }}>CYCLONEAI-SAT</div>
-              <div style={{ fontSize: 9.5, color: "#00E5FF", letterSpacing: 2.5, fontWeight: 700 }}>SIH26070 · CYCLONE INTELLIGENCE</div>
+              <div style={{ fontFamily: "var(--font-heading)", fontSize: 22, fontWeight: 900, color: "white", lineHeight: 1.1, letterSpacing: 0.5 }}>GeoPulse AI</div>
+              <div style={{ fontSize: 9.5, color: "#00E5FF", letterSpacing: 2.5, fontWeight: 700 }}>SIH26070 · TROPICAL CYCLONE INTELLIGENCE</div>
             </div>
           </div>
 
@@ -300,12 +301,14 @@ function Sidebar({
   nav, 
   setNav, 
   collapsed, 
-  setCollapsed 
+  setCollapsed,
+  onOpenAssistant
 }: { 
   nav: string; 
   setNav: (s: string) => void; 
   collapsed: boolean; 
   setCollapsed: (c: boolean) => void;
+  onOpenAssistant?: () => void;
 }) {
   const sections = [
     {
@@ -354,9 +357,10 @@ function Sidebar({
       ]
     },
     {
-      title: "EXPLAINABLE AI & EVALUATION",
+      title: "EXPLAINABLE AI & DECISION SUPPORT",
       items: [
-        { id: "xai", label: "10 Scientific Evaluation & XAI", Icon: Brain, live: false }
+        { id: "xai", label: "10 Scientific Evaluation & XAI", Icon: Brain, live: false },
+        { id: "ai_assistant", label: "GeoPulse AI Assistant", Icon: Brain, live: true, isAssistant: true }
       ]
     }
   ];
@@ -409,7 +413,7 @@ function Sidebar({
           </div>
           {!collapsed && (
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ fontFamily: "var(--font-heading)", fontSize: 13, fontWeight: 900, color: "white", lineHeight: 1.1 }}>CYCLONEAI-SAT</div>
+              <div style={{ fontFamily: "var(--font-heading)", fontSize: 13, fontWeight: 900, color: "white", lineHeight: 1.1 }}>GeoPulse AI</div>
               <div style={{ fontSize: 8, color: "rgba(0,229,255,0.75)", letterSpacing: 1.5, fontWeight: 700, marginTop: 1 }}>SIH26070</div>
             </div>
           )}
@@ -459,7 +463,13 @@ function Sidebar({
               return (
                 <button 
                   key={item.id} 
-                  onClick={() => setNav(item.id)} 
+                  onClick={() => {
+                    if ((item as any).isAssistant) {
+                      onOpenAssistant?.();
+                    } else {
+                      setNav(item.id);
+                    }
+                  }} 
                   style={{ 
                     width: "100%", 
                     display: "flex", 
@@ -626,7 +636,17 @@ function Sidebar({
 }
 
 // ─── TopBar ───────────────────────────────────────────────────────────────────
-function TopBar({ navLabel, onLogout }: { navLabel: string; onLogout: () => void }) {
+function TopBar({ 
+  navLabel, 
+  onLogout,
+  onOpenAssistant,
+  assistantOpen
+}: { 
+  navLabel: string; 
+  onLogout: () => void;
+  onOpenAssistant: () => void;
+  assistantOpen: boolean;
+}) {
   const [time, setTime] = useState(new Date());
   const [profileOpen, setProfileOpen] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
@@ -664,7 +684,7 @@ function TopBar({ navLabel, onLogout }: { navLabel: string; onLogout: () => void
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <span style={{ fontFamily: "var(--font-heading)", fontSize: 13.5, fontWeight: 900, color: "white", letterSpacing: "0.2px" }}>
-              CYCLONEAI-SAT
+              GeoPulse AI
             </span>
             <span style={{ 
               fontSize: 8, 
@@ -684,7 +704,7 @@ function TopBar({ navLabel, onLogout }: { navLabel: string; onLogout: () => void
             </span>
           </div>
           <span style={{ fontSize: 9, color: "rgba(0, 229, 255, 0.8)", letterSpacing: "1px", fontWeight: 700, textTransform: "uppercase" }}>
-            MISSION INTELLIGENCE <span style={{ color: "#475569", margin: "0 4px" }}>|</span> <span style={{ color: "white" }}>{navLabel}</span>
+            EARTH & ATMOSPHERIC INTELLIGENCE <span style={{ color: "#475569", margin: "0 4px" }}>|</span> <span style={{ color: "white" }}>{navLabel}</span>
           </span>
         </div>
       </div>
@@ -739,6 +759,31 @@ function TopBar({ navLabel, onLogout }: { navLabel: string; onLogout: () => void
 
       {/* Right side operational tools */}
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        
+        {/* Persistent GeoPulse AI Assistant Button */}
+        <button
+          onClick={onOpenAssistant}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 7,
+            padding: "5px 12px",
+            borderRadius: 6,
+            background: assistantOpen ? "linear-gradient(135deg, rgba(0, 229, 255, 0.25), rgba(123, 97, 255, 0.25))" : "rgba(0, 229, 255, 0.08)",
+            border: "1px solid rgba(0, 229, 255, 0.35)",
+            color: "white",
+            cursor: "pointer",
+            fontSize: 10.5,
+            fontWeight: 800,
+            fontFamily: "var(--font-heading)",
+            boxShadow: assistantOpen ? "0 0 14px rgba(0, 229, 255, 0.35)" : "0 0 8px rgba(0, 229, 255, 0.1)",
+            transition: "all 0.2s"
+          }}
+        >
+          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#00F593", boxShadow: "0 0 6px #00F593", animation: "pulse-dot 1.2s infinite" }} />
+          <Brain size={13} color="#00E5FF" />
+          <span>AI ASSISTANT</span>
+        </button>
         
         {/* Single Compact SYSTEM STATUS Trigger Button (Replaces Tag Pills) */}
         <div style={{ position: "relative" }}>
@@ -949,6 +994,7 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [nav, setNav] = useState("dashboard");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [assistantOpen, setAssistantOpen] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(2538); // 42m 18s
 
   useEffect(() => {
@@ -970,13 +1016,13 @@ export default function App() {
         <div style={{ display: "flex", height: "100vh", overflow: "hidden", fontFamily: "var(--font-sans)", color: "#E2E8F0" }}>
           
           {/* Main Sidebar */}
-          <Sidebar nav={nav} setNav={setNav} collapsed={sidebarCollapsed} setCollapsed={setSidebarCollapsed} />
+          <Sidebar nav={nav} setNav={setNav} collapsed={sidebarCollapsed} setCollapsed={setSidebarCollapsed} onOpenAssistant={() => setAssistantOpen(true)} />
           
           {/* Dashboard Viewport Panel */}
           <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", position: "relative", zIndex: 10 }}>
             
             {/* Mission Header */}
-            <TopBar navLabel={NAV_LABELS[nav] ?? nav} onLogout={() => setIsLoggedIn(false)} />
+            <TopBar navLabel={NAV_LABELS[nav] ?? nav} onLogout={() => setIsLoggedIn(false)} onOpenAssistant={() => setAssistantOpen(true)} assistantOpen={assistantOpen} />
             
             {/* Global Telemetry status Strip */}
             <GlobalTelemetryStrip elapsedSeconds={elapsedSeconds} />
@@ -1001,6 +1047,14 @@ export default function App() {
               {nav === "settings"   && <SettingsScreen />}
             </div>
           </div>
+
+          {/* GeoPulse AI Assistant Slide-Out Panel */}
+          <GeoPulseAIAssistant 
+            isOpen={assistantOpen} 
+            onClose={() => setAssistantOpen(false)} 
+            currentNav={nav} 
+            onNavigate={(tab) => setNav(tab)} 
+          />
 
         </div>
       )}

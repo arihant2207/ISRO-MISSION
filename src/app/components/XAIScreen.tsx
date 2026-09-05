@@ -418,7 +418,7 @@ export default function XAIScreen({ onNavigate }: XAIScreenProps) {
             <ShieldCheck size={24} color="#00E5FF" />
             <div>
               <div style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 900, color: "white", letterSpacing: "0.5px" }}>
-                CYCLONEAI-SAT • Scientific Evidence Summary
+                GeoPulse AI • Scientific Evidence Summary
               </div>
               <div style={{ fontSize: 11.5, color: "#94A3B8", marginTop: 2 }}>
                 Final judge-facing verification summary for SIH Problem Statement SIH26070

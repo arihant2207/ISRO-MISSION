@@ -68,10 +68,10 @@ export default function DashboardScreen({ elapsedSeconds = 0, onNavigate }: Dash
             </div>
 
             <div style={{ fontSize: 24, fontWeight: 900, color: "white", fontFamily: "var(--font-heading)", letterSpacing: 0.2, marginTop: 4 }}>
-              CYCLONEAI-SAT
+              GeoPulse AI
             </div>
             <div style={{ fontSize: 13, fontWeight: 700, color: "#00E5FF", fontFamily: "var(--font-heading)" }}>
-              Multi-Source AI Tropical Cyclone Intelligence & Prediction
+              AI-Powered Earth & Atmospheric Intelligence <span style={{ color: "#64748B", margin: "0 4px" }}>|</span> <span style={{ color: "#7B61FF" }}>SIH26070 Tropical Cyclone Intelligence</span>
             </div>
             <div style={{ fontSize: 11, color: "#94A3B8", fontFamily: "var(--font-sans)", lineHeight: 1.4, maxWidth: 800 }}>
               Operational research prototype integrating geostationary thermal satellite observations, multi-stage AI pattern classification, persistence trajectory forecasting, and held-out validation.

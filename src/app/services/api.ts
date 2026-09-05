@@ -1017,7 +1017,7 @@ export async function fetchSatelliteComparison(): Promise<SourceComparisonRespon
     common_channels: [],
     multi_source_status: "INSUFFICIENT_CONNECTED_SOURCES",
     message: "Additional satellite source required for operational multi-source fusion.",
-    provenance: "CycloneAI Multi-Source Registry Audit",
+    provenance: "GeoPulse AI Multi-Source Registry Audit",
     disclaimer: "Research multi-source baseline — only verified local assets are CONNECTED."
   };
 }
@@ -1054,7 +1054,7 @@ export async function fetchSatelliteFusionStatus(): Promise<FusionStatusResponse
       { node_id: "DOWNSTREAM_INFERENCE", node_name: "Downstream Cyclone ML Models", node_type: "downstream", status: "READY", description: "Identification, Classification, Intensity, Track, and Landfall models (currently running on INSAT-3D single-source baseline)." }
     ],
     message: "Multi-source satellite architecture implemented; currently 1 satellite source connected; additional source integration pending.",
-    provenance: "CycloneAI Multi-Source Fusion Engine",
+    provenance: "GeoPulse AI Multi-Source Fusion Engine",
     disclaimer: "Architecture ready for multi-source ingestion. No synthetic fusion outputs generated."
   };
 }
@@ -1144,7 +1144,7 @@ export async function fetchEvaluationSummary(): Promise<SystemEvaluationSummary>
     console.warn("[ApiClient] Using fallback evaluation summary.");
   }
   return {
-    system_version: "Phase 9 — CycloneAI Unified Scientific Baseline",
+    system_version: "Phase 9 — GeoPulse AI Unified Scientific Baseline",
     generated_at: "2026-09-04 12:00:00 UTC",
     multi_source_status: "INSUFFICIENT_CONNECTED_SOURCES",
     connected_sources_count: 1,
