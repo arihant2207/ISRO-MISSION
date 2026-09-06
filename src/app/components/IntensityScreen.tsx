@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { 
-  Wind, ShieldAlert, Cpu, ArrowRight, Play, Pause, SkipForward, SkipBack, Info, CheckCircle2, AlertCircle, BarChart3, TrendingUp, TrendingDown, Minus, Filter, Clock
+  Wind, ShieldAlert, Cpu, ArrowRight, Play, Pause, SkipForward, SkipBack, Info, CheckCircle2, AlertCircle, AlertTriangle, BarChart3, TrendingUp, TrendingDown, Minus, Filter, Clock
 } from "lucide-react";
 import { 
   fetchCycloneIntensity, 
